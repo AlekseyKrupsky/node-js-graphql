@@ -1,0 +1,13 @@
+type Favourites {
+    id: ID!
+    userId: ID!
+    bands: [ID]
+    genres: [ID]
+    artists: [ID]
+    tracks: [ID]
+}
+
+type Query {
+    favourites(limit: Int, offset: Int): [Favourites]
+    favourite(id: ID!): Favourites
+}
