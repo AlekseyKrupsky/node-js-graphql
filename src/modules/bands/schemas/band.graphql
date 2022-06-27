@@ -2,7 +2,7 @@ type Band {
     id: ID!
     name: String
     origin: String
-    members: [Member]
+#    members: [Member]
     website: String
     genres: String
 }
