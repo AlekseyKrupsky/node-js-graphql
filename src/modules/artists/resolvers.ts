@@ -1,22 +1,12 @@
-import Artists from "./artists";
-
-
-
 export const resolvers = {
     Query: {
-        artists() {
-            const artists = new Artists();
+        artists: async (parent: any, args: any, context: any) => {
+            const artistsList = await context.dataSources.artistsAPI.getAll();
 
-            artists.getAll().then((result) => {
-                console.log(result)
-            });
-
-            return [];
+            return artistsList.items;
         },
-        artist(parent: any, args: any) {
-            const artists = new Artists();
-
-            return artists.find(args.id);
+        artist: async (parent: any, args: any, context: any) => {
+            return context.dataSources.artistsAPI.find(args.id);
         }
     }
 };

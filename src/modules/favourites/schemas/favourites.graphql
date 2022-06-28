@@ -9,5 +9,4 @@ type Favourites {
 
 type Query {
     favourites(limit: Int, offset: Int): [Favourites]
-    favourite(id: ID!): Favourites
 }

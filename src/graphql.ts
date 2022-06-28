@@ -1,63 +1,57 @@
-import { ApolloServer, gql } from "apollo-server";
-import { resolvers } from "./modules/artists/resolvers";
+import { ApolloServer } from "apollo-server";
+import { resolvers as artistResolvers } from "./modules/artists/resolvers";
+import { resolvers as albumResolvers } from "./modules/albums/resolvers";
+import { resolvers as bandsResolvers } from "./modules/bands/resolvers";
+import { resolvers as genresResolvers } from "./modules/genres/resolvers";
+import { resolvers as usersResolvers } from "./modules/users/resolvers";
+import { resolvers as tracksResolvers } from "./modules/tracks/resolvers";
+import { resolvers as favouritesResolvers } from "./modules/favourites/resolvers";
 import { loadSchema } from "@graphql-tools/load";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
-
-
-
-// console.log(process.env.ARTISTS_URL);
-
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
+import ArtistsAPI from "./modules/artists/artistsAPI";
+import AlbumsAPI from "./modules/albums/albumsAPI";
+import GenresAPI from "./modules/genres/genresAPI";
+import BandsAPI from "./modules/bands/bandsAPI";
+import UsersAPI from "./modules/users/usersAPI";
+import TracksAPI from "./modules/tracks/tracksAPI";
+import FavouritesAPI from "./modules/favourites/favouritesAPI";
 
 export const run = async () => {
     const typeDefs = await loadSchema('./src/modules/**/*.graphql', {
         loaders: [new GraphQLFileLoader()]
     });
 
-// const typeDefs = gql`
-//   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-//
-//   # This "Book" type defines the queryable fields for every book in our data source.
-//   type Book {
-//     title: String
-//     author: String
-//   }
-//
-//   # The "Query" type is special: it lists all of the available queries that
-//   # clients can execute, along with the return type for each. In this
-//   # case, the "books" query returns an array of zero or more Books (defined above).
-// #  type Query {
-// #    books: [Book]
-// #  }
-// `;
-
-// const books = [
-//     {
-//         title: 'The Awakening',
-//         author: 'Kate Chopin',
-//     },
-//     {
-//         title: 'City of Glass',
-//         author: 'Paul Auster',
-//     },
-// ];
-
-// const resolvers = {
-//     Query: {
-//         books: () => books,
-//     },
-// };
+    const resolvers = {
+        Query: Object.assign(
+            {},
+            artistResolvers.Query,
+            albumResolvers.Query,
+            bandsResolvers.Query,
+            genresResolvers.Query,
+            usersResolvers.Query,
+            tracksResolvers.Query,
+            favouritesResolvers.Query
+        )
+    };
 
     const server = new ApolloServer({
         typeDefs,
         resolvers,
         csrfPrevention: true,
         cache: 'bounded',
+        dataSources: () => {
+            return {
+                artistsAPI: new ArtistsAPI(),
+                albumsAPI: new AlbumsAPI(),
+                genresAPI: new GenresAPI(),
+                bandsAPI: new BandsAPI(),
+                usersAPI: new UsersAPI(),
+                tracksAPI: new TracksAPI(),
+                favouritesAPI: new FavouritesAPI(),
+            }
+        }
     });
 
-// The `listen` method launches a web server.
     server.listen({ port: process.env.PORT }).then(({ url }) => {
         console.log(`🚀  Server ready at ${url}`);
     });

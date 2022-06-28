@@ -1,15 +1,11 @@
 import { RESTDataSource } from "apollo-datasource-rest";
 
-class Artists extends RESTDataSource {
+class MusicifyAPI extends RESTDataSource {
     constructor() {
         super();
-        this.baseURL = process.env.ARTISTS_URL;
-        console.log(this.baseURL);
     }
 
     async find(id: string) {
-        console.log(this.get(encodeURIComponent(id)));
-
         return this.get(encodeURIComponent(id));
     }
 
@@ -18,4 +14,4 @@ class Artists extends RESTDataSource {
     }
 }
 
-export default Artists;
+export default MusicifyAPI;
