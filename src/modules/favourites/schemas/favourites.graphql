@@ -7,6 +7,6 @@ type Favourites {
     tracks: [ID]
 }
 
-type Query {
+extend type Query {
     favourites(limit: Int, offset: Int): [Favourites]
 }

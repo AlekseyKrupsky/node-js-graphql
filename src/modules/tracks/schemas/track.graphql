@@ -8,7 +8,7 @@ type Track {
     genres: [Genre]
 }
 
-type Query {
+extend type Query {
     tracks(limit: Int, offset: Int): [Track]
     track(id: ID!): Track
 }

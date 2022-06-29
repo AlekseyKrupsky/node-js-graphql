@@ -31,7 +31,10 @@ export const run = async () => {
             usersResolvers.Query,
             tracksResolvers.Query,
             favouritesResolvers.Query
-        )
+        ),
+        Album: albumResolvers.Album,
+        Artist: artistResolvers.Artist,
+        Favourites: favouritesResolvers.Favourites
     };
 
     const server = new ApolloServer({

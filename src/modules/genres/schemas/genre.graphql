@@ -6,7 +6,7 @@ type Genre {
     year: Int
 }
 
-type Query {
+extend type Query {
     genres(limit: Int, offset: Int): [Genre]
     genre(id: ID!): Genre
 }

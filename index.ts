@@ -1,12 +1,8 @@
-import { ApolloServer, gql } from "apollo-server";
 import * as dotenv from 'dotenv';
 import { cwd } from "node:process";
 import { run } from "./src/graphql";
 
 dotenv.config({ path: `${cwd()}/.env`});
-
-console.log(process.env.ARTISTS_URL);
-
 
 run();
 

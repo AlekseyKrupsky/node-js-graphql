@@ -10,7 +10,7 @@ type Artist {
     instruments: String
 }
 
-type Query {
+extend type Query {
     artists(limit: Int, offset: Int): [Artist]
     artist(id: ID!): Artist
 }
