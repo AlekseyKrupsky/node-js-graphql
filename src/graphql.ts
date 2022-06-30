@@ -34,7 +34,8 @@ export const run = async () => {
         ),
         Mutation: Object.assign(
             {},
-            usersResolvers.Mutation
+            usersResolvers.Mutation,
+            genresResolvers.Mutation
         ),
         Album: albumResolvers.Album,
         Artist: artistResolvers.Artist,
