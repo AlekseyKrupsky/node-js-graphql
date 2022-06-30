@@ -9,6 +9,26 @@ class UsersAPI extends RESTDataSource {
     async find(id: string) {
         return this.get(encodeURIComponent(id));
     }
+
+    async login(args: any) {
+        return this.post('login', {
+            email: args.email,
+            password: args.password
+        });
+    }
+
+    async register(args: any) {
+        return this.post('register', {
+            firstName: args.firstName,
+            lastName: args.lastName,
+            password: args.password,
+            email: args.email
+        });
+    }
+
+    async verify(jwt: string) {
+        return this.post('verify', {}, { headers: { Authorization: `${jwt}` }});
+    }
 }
 
 export default UsersAPI;

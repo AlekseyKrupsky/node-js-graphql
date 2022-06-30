@@ -6,6 +6,20 @@ type User {
     email: String!
 }
 
+type VerifiedUser {
+    id: ID!
+    firstName: String!
+    secondName: String!
+    email: String!
+    iat: Int
+}
+
 extend type Query {
+    jwt(email: String!, password: String!): String
     user(id: ID!): User
+    verify: VerifiedUser
+}
+
+type Mutation {
+    register(firstName: String!, lastName: String!, password: String!, email: String!): User
 }

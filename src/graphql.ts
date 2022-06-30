@@ -32,6 +32,10 @@ export const run = async () => {
             tracksResolvers.Query,
             favouritesResolvers.Query
         ),
+        Mutation: Object.assign(
+            {},
+            usersResolvers.Mutation
+        ),
         Album: albumResolvers.Album,
         Artist: artistResolvers.Artist,
         Band: bandsResolvers.Band,
@@ -54,6 +58,11 @@ export const run = async () => {
                 tracksAPI: new TracksAPI(),
                 favouritesAPI: new FavouritesAPI(),
             }
+        },
+        context: ({ req }) => {
+            const token = req.headers.authorization || '';
+
+            return { token };
         }
     });
 
