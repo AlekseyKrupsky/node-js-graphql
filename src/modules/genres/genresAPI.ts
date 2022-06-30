@@ -22,10 +22,6 @@ class GenresAPI extends MusicifyAPI {
 
         return genre;
     }
-
-    async remove(id: string, token: string) {
-        return await this.delete(id, {}, { headers: { Authorization: `${token}` }});
-    }
 }
 
 export default GenresAPI;

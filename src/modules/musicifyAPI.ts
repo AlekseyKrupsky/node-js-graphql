@@ -12,6 +12,10 @@ class MusicifyAPI extends RESTDataSource {
     async getAll() {
         return this.get('');
     }
+
+    async remove(id: string, token: string) {
+        return await this.delete(id, {}, { headers: { Authorization: `${token}` }});
+    }
 }
 
 export default MusicifyAPI;

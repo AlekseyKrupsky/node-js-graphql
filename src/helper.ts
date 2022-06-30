@@ -11,3 +11,11 @@ export const getRelated = async (parent: any, context: any, type: string, fieldN
 
     return relatedItems;
 };
+
+export const getOneRelated = async (id: string, context: any, type: string) => {
+    const item = await context.dataSources[`${type}API`].find(id);
+
+    item.id = item._id;
+
+    return item;
+};

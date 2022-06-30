@@ -35,13 +35,15 @@ export const run = async () => {
         Mutation: Object.assign(
             {},
             usersResolvers.Mutation,
-            genresResolvers.Mutation
+            genresResolvers.Mutation,
+            bandsResolvers.Mutation
         ),
         Album: albumResolvers.Album,
         Artist: artistResolvers.Artist,
         Band: bandsResolvers.Band,
         Track: tracksResolvers.Track,
-        Favourites: favouritesResolvers.Favourites
+        Favourites: favouritesResolvers.Favourites,
+        Member: bandsResolvers.Member
     };
 
     const server = new ApolloServer({
