@@ -13,6 +13,22 @@ class MusicifyAPI extends RESTDataSource {
         return this.get('');
     }
 
+    async create(args: any, token: string) {
+        const item = await this.post('', args, { headers: { Authorization: `${token}` }});
+
+        item.id = item._id;
+
+        return item;
+    }
+
+    async update(args: any, token: string) {
+        const item = await this.put(args.id, args, { headers: { Authorization: `${token}` }});
+
+        item.id = item._id;
+
+        return item;
+    }
+
     async remove(id: string, token: string) {
         return await this.delete(id, {}, { headers: { Authorization: `${token}` }});
     }
