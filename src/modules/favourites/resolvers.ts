@@ -1,4 +1,4 @@
-import {getRelated} from "../helper";
+import {getRelated} from "../../helper";
 
 export const resolvers = {
     Query: {

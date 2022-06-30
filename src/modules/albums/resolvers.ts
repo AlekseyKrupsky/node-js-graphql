@@ -1,4 +1,4 @@
-import { getRelated } from "../helper";
+import { getRelated } from "../../helper";
 
 export const resolvers = {
     Query: {
@@ -20,6 +20,9 @@ export const resolvers = {
         },
         genres: async (album: any, args: any, context: any) => {
             return await getRelated(album, context, 'genres');
+        },
+        tracks: async (album: any, args: any, context: any) => {
+            return await getRelated(album, context, 'tracks', 'trackIds');
         },
     },
 };

@@ -1,7 +1,7 @@
 type Track {
     id: ID!
-    title: String
-    albums: String
+    title: String!
+    albums: [Album]
     bands: [Band]
     duration: Int
     released: Int

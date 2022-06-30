@@ -34,6 +34,8 @@ export const run = async () => {
         ),
         Album: albumResolvers.Album,
         Artist: artistResolvers.Artist,
+        Band: bandsResolvers.Band,
+        Track: tracksResolvers.Track,
         Favourites: favouritesResolvers.Favourites
     };
 
