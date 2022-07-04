@@ -1,5 +1,5 @@
 type Album {
-    id: ID
+    id: ID!
     name: String
     released: Int
     artists: [Artist]

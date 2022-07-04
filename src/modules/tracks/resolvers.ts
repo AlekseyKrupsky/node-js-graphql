@@ -1,4 +1,4 @@
-import { getRelated } from "../../helper";
+import { getOneRelated, getRelated } from "../../helper";
 
 export const resolvers = {
     Query: {
@@ -12,22 +12,17 @@ export const resolvers = {
         }
     },
     Track: {
+        artists: async (track: any, args: any, context: any) => {
+            return await getRelated(track, context, 'artists');
+        },
         bands: async (track: any, args: any, context: any) => {
             return await getRelated(track, context, 'bands');
         },
         genres: async (track: any, args: any, context: any) => {
             return await getRelated(track, context, 'genres');
         },
-        albums: async (track: any, args: any, context: any) => {
-            const allItems = await context.dataSources[`albumsAPI`].getAll();
-
-            const relatedItems = allItems.items.filter((item: any) => item.trackIds.indexOf(track._id) !== -1);
-
-            relatedItems.map((item: any) => {
-                item.id = item._id;
-            });
-
-            return relatedItems;
+        album: async (track: any, args: any, context: any) => {
+            return await getOneRelated(track.albumId, context, 'albums');
         }
     }
 };
