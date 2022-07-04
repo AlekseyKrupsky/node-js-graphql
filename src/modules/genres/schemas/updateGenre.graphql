@@ -1,0 +1,7 @@
+input UpdateGenre {
+    id: ID!
+    name: String
+    description: String
+    country: String
+    year: Int
+}

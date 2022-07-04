@@ -1,0 +1,6 @@
+input CreateGenre {
+    name: String!
+    description: String
+    country: String
+    year: Int
+}

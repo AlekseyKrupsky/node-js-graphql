@@ -13,7 +13,22 @@ export const resolvers = {
     },
     Artist: {
         bands: async (artist: any, args: any, context: any) => {
-            return await getRelated(artist, context, 'bands', 'bands');
+            return await getRelated(artist, context, 'bands');
         }
+    },
+    Mutation: {
+        createArtist: async (parent: any, args: any, context: any) => {
+            args.bandsIds = args.bands;
+
+            return context.dataSources.artistsAPI.create(args, context.token);
+        },
+        updateArtist: async (parent: any, args: any, context: any) => {
+            args.bandsIds = args.bands;
+
+            return context.dataSources.artistsAPI.update(args, context.token);
+        },
+        deleteArtist: async (parent: any, args: any, context: any) => {
+            return context.dataSources.artistsAPI.remove(args.id, context.token);
+        },
     }
 };
