@@ -21,5 +21,10 @@ export const resolvers = {
         tracks: async (parent: any, args: any, context: any) => {
             return await getRelated(parent, context, 'tracks');
         },
+    },
+    Mutation: {
+        addTrackToFavourites: async (parent: any, args: any, context: any) => {
+
+        },
     }
 };

@@ -39,7 +39,8 @@ export const run = async () => {
             bandsResolvers.Mutation,
             artistResolvers.Mutation,
             tracksResolvers.Mutation,
-            albumResolvers.Mutation
+            albumResolvers.Mutation,
+            favouritesResolvers.Mutation
         ),
         Album: albumResolvers.Album,
         Artist: artistResolvers.Artist,
