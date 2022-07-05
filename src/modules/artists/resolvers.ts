@@ -6,11 +6,7 @@ export const resolvers = {
             return context.dataSources.artistsAPI.getAll(args);
         },
         artist: async (parent: any, args: any, context: any) => {
-            const artist = await context.dataSources.artistsAPI.find(args.id);
-
-            artist.id = artist._id;
-
-            return artist;
+            return context.dataSources.artistsAPI.find(args.id);
         }
     },
     Artist: {

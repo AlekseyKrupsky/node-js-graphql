@@ -15,9 +15,7 @@ export type CreateBand = {
 export const resolvers = {
     Query: {
         bands: async (parent: any, args: any, context: any) => {
-            const bandsList = await context.dataSources.bandsAPI.getAll();
-
-            return bandsList.items;
+            return context.dataSources.bandsAPI.getAll(args);
         },
         band: async (parent: any, args: any, context: any) => {
             return context.dataSources.bandsAPI.find(args.id);
@@ -25,12 +23,12 @@ export const resolvers = {
     },
     Band: {
         genres: async (band: any, args: any, context: any) => {
-            return await getRelated(band, context, 'genres');
+            return getRelated(band, context, 'genres');
         }
     },
     Member: {
         artist: async (member: any, args: any, context: any) => {
-            return await getOneRelated(member['artist'], context, 'artists');
+            return getOneRelated(member['artist'], context, 'artists');
         }
     },
     Mutation: {

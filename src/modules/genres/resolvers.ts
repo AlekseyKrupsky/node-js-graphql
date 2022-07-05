@@ -8,9 +8,7 @@ export type CreateGenre = {
 export const resolvers = {
     Query: {
         genres: async (parent: any, args: any, context: any) => {
-            const genresList = await context.dataSources.genresAPI.getAll();
-
-            return genresList.items;
+            return context.dataSources.genresAPI.getAll(args);
         },
         genre: async (parent: any, args: any, context: any) => {
             return context.dataSources.genresAPI.find(args.id);

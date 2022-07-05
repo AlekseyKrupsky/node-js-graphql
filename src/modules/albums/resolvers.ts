@@ -3,9 +3,7 @@ import { getRelated } from "../../helper";
 export const resolvers = {
     Query: {
         albums: async (parent: any, args: any, context: any) => {
-            const albumsList = await context.dataSources.albumsAPI.getAll();
-
-            return albumsList.items;
+            return context.dataSources.albumsAPI.getAll(args);
         },
         album: async (parent: any, args: any, context: any) => {
             return context.dataSources.albumsAPI.find(args.id);
@@ -13,16 +11,16 @@ export const resolvers = {
     },
     Album: {
         bands: async (album: any, args: any, context: any) => {
-            return await getRelated(album, context, 'bands');
+            return getRelated(album, context, 'bands');
         },
         artists: async (album: any, args: any, context: any) => {
-            return await getRelated(album, context, 'artists');
+            return getRelated(album, context, 'artists');
         },
         genres: async (album: any, args: any, context: any) => {
-            return await getRelated(album, context, 'genres');
+            return getRelated(album, context, 'genres');
         },
         tracks: async (album: any, args: any, context: any) => {
-            return await getRelated(album, context, 'tracks', 'trackIds');
+            return getRelated(album, context, 'tracks', 'trackIds');
         },
     },
     Mutation: {

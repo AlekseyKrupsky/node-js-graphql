@@ -6,7 +6,11 @@ class MusicifyAPI extends RESTDataSource {
     }
 
     async find(id: string) {
-        return this.get(encodeURIComponent(id));
+        const item = await this.get(encodeURIComponent(id));
+
+        item.id = item._id;
+
+        return item;
     }
 
     async getAll(args: any) {
