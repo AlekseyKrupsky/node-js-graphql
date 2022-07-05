@@ -74,6 +74,6 @@ export const run = async () => {
     });
 
     server.listen({ port: process.env.PORT }).then(({ url }) => {
-        console.log(`🚀  Server ready at ${url}`);
+        console.log(`🚀 Server ready at ${url}`);
     });
 }

@@ -9,8 +9,27 @@ class MusicifyAPI extends RESTDataSource {
         return this.get(encodeURIComponent(id));
     }
 
-    async getAll() {
-        return this.get('');
+    async getAll(args: any) {
+        let params = {
+            limit: 5,
+            offset: 0
+        }
+
+        if (args.offset && typeof args.offset === "number") {
+            params.offset = args.offset;
+        }
+
+        if (args.limit && typeof args.limit === "number") {
+            params.limit = args.limit;
+        }
+
+        const result = await this.get('', params);
+
+        result.items.map((item: any) => {
+            item.id = item._id;
+        });
+
+        return result.items;
     }
 
     async create(args: any, token: string) {

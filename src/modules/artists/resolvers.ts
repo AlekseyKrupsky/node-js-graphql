@@ -3,12 +3,14 @@ import { getRelated } from "../../helper";
 export const resolvers = {
     Query: {
         artists: async (parent: any, args: any, context: any) => {
-            const artistsList = await context.dataSources.artistsAPI.getAll();
-
-            return artistsList.items;
+            return context.dataSources.artistsAPI.getAll(args);
         },
         artist: async (parent: any, args: any, context: any) => {
-            return context.dataSources.artistsAPI.find(args.id);
+            const artist = await context.dataSources.artistsAPI.find(args.id);
+
+            artist.id = artist._id;
+
+            return artist;
         }
     },
     Artist: {
