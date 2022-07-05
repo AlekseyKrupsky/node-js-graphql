@@ -11,9 +11,7 @@ const enum types {
 export const resolvers = {
     Query: {
         favourites: async (parent: any, args: any, context: any) => {
-            const favouritesList = await context.dataSources.favouritesAPI.getAll(context.token);
-
-            return favouritesList.items;
+            return await context.dataSources.favouritesAPI.getAll(context.token);
         },
     },
     Favourites: {
