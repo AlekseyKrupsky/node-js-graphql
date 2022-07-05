@@ -17,7 +17,20 @@ extend type Query {
 }
 
 extend type Mutation {
-    createGenre(genre: CreateGenre): Genre
-    updateGenre(genre: UpdateGenre): Genre
+    createGenre(
+        name: String!
+        description: String
+        country: String
+        year: Int
+    ): Genre
+
+    updateGenre(
+        id: ID!
+        name: String
+        description: String
+        country: String
+        year: Int
+    ): Genre
+
     deleteGenre(id: ID!): DeleteResponse
 }

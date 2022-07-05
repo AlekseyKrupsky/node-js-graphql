@@ -21,7 +21,11 @@ class FavouritesAPI extends RESTDataSource {
     }
 
     async getAll(token: string) {
-        return this.get('', {}, { headers: { Authorization: `${token}` }});
+        const favourites = await this.get('', {}, { headers: { Authorization: `${token}` }});
+
+        favourites.id = favourites._id;
+
+        return favourites;
     }
 
     async putRequest(args: { [key:string]: string }, type: string, token: string, actionType: string) {
@@ -31,7 +35,11 @@ class FavouritesAPI extends RESTDataSource {
             type: type
         }
 
-        return this.put(actionType, body, { headers: { Authorization: `${token}` }});
+        const favourites = await this.put(actionType, body, { headers: { Authorization: `${token}` }});
+
+        favourites.id = favourites._id;
+
+        return favourites;
     }
 }
 

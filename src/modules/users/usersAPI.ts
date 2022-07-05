@@ -14,7 +14,7 @@ class UsersAPI extends RESTDataSource {
         return this.post('login', args);
     }
 
-    async register(args: { firstName: string, lastName:string, email: string, password: string }) {
+    async register(args: { firstName: string, lastName: string, email: string, password: string }) {
         return this.post('register', args);
     }
 

@@ -19,12 +19,16 @@ class MusicifyAPI extends RESTDataSource {
             offset: 0
         }
 
-        if (args.offset && typeof args.offset === "number") {
+        if (typeof args.offset === "number") {
             params.offset = args.offset;
+        } else if (args.offset !== undefined) {
+            return { error: "Offset should be a number" };
         }
 
-        if (args.limit && typeof args.limit === "number") {
+        if (typeof args.limit === "number") {
             params.limit = args.limit;
+        } else if (args.limit !== undefined) {
+            return { error: "Limit should be a number" };
         }
 
         const result = await this.get('', params);

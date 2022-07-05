@@ -16,9 +16,9 @@ export const getRelated = async (parent: any, context: any, type: string, fieldN
 };
 
 export const getOneRelated = async (id: string, context: any, type: string) => {
-    const item = await context.dataSources[`${type}API`].find(id);
+    if (!id) {
+        return null;
+    }
 
-    item.id = item._id;
-
-    return item;
+    return context.dataSources[`${type}API`].find(id);
 };
