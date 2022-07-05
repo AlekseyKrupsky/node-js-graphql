@@ -1,13 +1,16 @@
 export const getRelated = async (parent: any, context: any, type: string, fieldName?: string) => {
-    const allItems = await context.dataSources[`${type}API`].getAll();
+    const relatedItems = [];
+    const parentItemsIdsFieldName = fieldName ? fieldName : `${type}Ids`;
 
-    const parentFieldName = fieldName ? fieldName : `${type}Ids`;
+    for (let itemId of parent[parentItemsIdsFieldName]) {
+        const item = await getOneRelated(itemId, context, type);
 
-    const relatedItems = allItems.items.filter((item: any) => parent[parentFieldName].indexOf(item._id) !== -1);
+        relatedItems.push(item);
 
-    relatedItems.map((item: any) => {
-        item.id = item._id;
-    });
+        relatedItems.map((item: any) => {
+            item.id = item._id;
+        });
+    }
 
     return relatedItems;
 };

@@ -16,4 +16,8 @@ extend type Mutation {
     addBandToFavourites(band: ID!): Favourites
     addArtistToFavourites(artist: ID!): Favourites
     addGenreToFavourites(genre: ID!): Favourites
+    removeTrackFromFavourites(track: ID!): Favourites
+    removeBandFromFavourites(band: ID!): Favourites
+    removeArtistFromFavourites(artist: ID!): Favourites
+    removeGenreFromFavourites(genre: ID!): Favourites
 }
