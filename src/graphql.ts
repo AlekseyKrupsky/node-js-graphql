@@ -16,64 +16,64 @@ import UsersAPI from "./modules/users/usersAPI";
 import TracksAPI from "./modules/tracks/tracksAPI";
 import FavouritesAPI from "./modules/favourites/favouritesAPI";
 
-export const run = async () => {
-    const typeDefs = await loadSchema('./src/modules/**/*.graphql', {
+export const run = () => {
+    loadSchema('./src/modules/**/*.graphql', {
         loaders: [new GraphQLFileLoader()]
-    });
+    }).then((typeDefs) => {
+        const resolvers = {
+            Query: Object.assign(
+                {},
+                artistResolvers.Query,
+                albumResolvers.Query,
+                bandsResolvers.Query,
+                genresResolvers.Query,
+                usersResolvers.Query,
+                tracksResolvers.Query,
+                favouritesResolvers.Query
+            ),
+            Mutation: Object.assign(
+                {},
+                usersResolvers.Mutation,
+                genresResolvers.Mutation,
+                bandsResolvers.Mutation,
+                artistResolvers.Mutation,
+                tracksResolvers.Mutation,
+                albumResolvers.Mutation,
+                favouritesResolvers.Mutation
+            ),
+            Album: albumResolvers.Album,
+            Artist: artistResolvers.Artist,
+            Band: bandsResolvers.Band,
+            Track: tracksResolvers.Track,
+            Favourites: favouritesResolvers.Favourites,
+            Member: bandsResolvers.Member
+        };
 
-    const resolvers = {
-        Query: Object.assign(
-            {},
-            artistResolvers.Query,
-            albumResolvers.Query,
-            bandsResolvers.Query,
-            genresResolvers.Query,
-            usersResolvers.Query,
-            tracksResolvers.Query,
-            favouritesResolvers.Query
-        ),
-        Mutation: Object.assign(
-            {},
-            usersResolvers.Mutation,
-            genresResolvers.Mutation,
-            bandsResolvers.Mutation,
-            artistResolvers.Mutation,
-            tracksResolvers.Mutation,
-            albumResolvers.Mutation,
-            favouritesResolvers.Mutation
-        ),
-        Album: albumResolvers.Album,
-        Artist: artistResolvers.Artist,
-        Band: bandsResolvers.Band,
-        Track: tracksResolvers.Track,
-        Favourites: favouritesResolvers.Favourites,
-        Member: bandsResolvers.Member
-    };
+        const server = new ApolloServer({
+            typeDefs,
+            resolvers,
+            csrfPrevention: true,
+            cache: 'bounded',
+            dataSources: () => {
+                return {
+                    artistsAPI: new ArtistsAPI(),
+                    albumsAPI: new AlbumsAPI(),
+                    genresAPI: new GenresAPI(),
+                    bandsAPI: new BandsAPI(),
+                    usersAPI: new UsersAPI(),
+                    tracksAPI: new TracksAPI(),
+                    favouritesAPI: new FavouritesAPI(),
+                }
+            },
+            context: ({ req }) => {
+                const token = req.headers.authorization || '';
 
-    const server = new ApolloServer({
-        typeDefs,
-        resolvers,
-        csrfPrevention: true,
-        cache: 'bounded',
-        dataSources: () => {
-            return {
-                artistsAPI: new ArtistsAPI(),
-                albumsAPI: new AlbumsAPI(),
-                genresAPI: new GenresAPI(),
-                bandsAPI: new BandsAPI(),
-                usersAPI: new UsersAPI(),
-                tracksAPI: new TracksAPI(),
-                favouritesAPI: new FavouritesAPI(),
+                return { token };
             }
-        },
-        context: ({ req }) => {
-            const token = req.headers.authorization || '';
+        });
 
-            return { token };
-        }
-    });
-
-    server.listen({ port: process.env.PORT }).then(({ url }) => {
-        console.log(`🚀 Server ready at ${url}`);
+        server.listen({ port: process.env.PORT }).then(({ url }) => {
+            console.log(`🚀 Server ready at ${url}`);
+        });
     });
 }

@@ -1,4 +1,4 @@
-import MusicifyAPI from "../musicifyAPI";
+import MusicifyAPI from "../../musicifyAPI";
 
 class ArtistsAPI extends MusicifyAPI {
     constructor() {

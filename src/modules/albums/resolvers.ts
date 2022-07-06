@@ -1,4 +1,7 @@
 import { getRelated } from "../../helper";
+import { entityTypes } from "../../enums/entityTypes";
+
+const TRACKS_FIELD_NAME = 'trackIds';
 
 export const resolvers = {
     Query: {
@@ -11,16 +14,16 @@ export const resolvers = {
     },
     Album: {
         bands: async (album: any, args: any, context: any) => {
-            return getRelated(album, context, 'bands');
+            return getRelated(album, context, entityTypes.BANDS);
         },
         artists: async (album: any, args: any, context: any) => {
-            return getRelated(album, context, 'artists');
+            return getRelated(album, context, entityTypes.ARTISTS);
         },
         genres: async (album: any, args: any, context: any) => {
-            return getRelated(album, context, 'genres');
+            return getRelated(album, context, entityTypes.GENRES);
         },
         tracks: async (album: any, args: any, context: any) => {
-            return getRelated(album, context, 'tracks', 'trackIds');
+            return getRelated(album, context, entityTypes.TRACKS, TRACKS_FIELD_NAME);
         },
     },
     Mutation: {

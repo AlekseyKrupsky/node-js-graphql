@@ -1,4 +1,5 @@
 import { getOneRelated, getRelated } from "../../helper";
+import { entityTypes } from "../../enums/entityTypes";
 
 export const resolvers = {
     Query: {
@@ -11,16 +12,16 @@ export const resolvers = {
     },
     Track: {
         artists: async (track: any, args: any, context: any) => {
-            return getRelated(track, context, 'artists');
+            return getRelated(track, context, entityTypes.ARTISTS);
         },
         bands: async (track: any, args: any, context: any) => {
-            return getRelated(track, context, 'bands');
+            return getRelated(track, context, entityTypes.BANDS);
         },
         genres: async (track: any, args: any, context: any) => {
-            return getRelated(track, context, 'genres');
+            return getRelated(track, context, entityTypes.GENRES);
         },
         album: async (track: any, args: any, context: any) => {
-            return getOneRelated(track.albumId, context, 'albums');
+            return getOneRelated(track.albumId, context, entityTypes.ALBUMS);
         }
     },
     Mutation: {

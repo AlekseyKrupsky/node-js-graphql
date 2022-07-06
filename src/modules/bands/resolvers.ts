@@ -1,4 +1,5 @@
-import {getOneRelated, getRelated} from "../../helper";
+import { getOneRelated, getRelated } from "../../helper";
+import { entityTypes } from "../../enums/entityTypes";
 
 export type CreateBand = {
     name: string,
@@ -23,12 +24,14 @@ export const resolvers = {
     },
     Band: {
         genres: async (band: any, args: any, context: any) => {
-            return getRelated(band, context, 'genres');
+            return getRelated(band, context, entityTypes.GENRES);
         }
     },
     Member: {
         artist: async (member: any, args: any, context: any) => {
-            return getOneRelated(member['artist'], context, 'artists');
+            const artistId = member['artist'];
+
+            return getOneRelated(artistId, context, entityTypes.ARTISTS);
         }
     },
     Mutation: {

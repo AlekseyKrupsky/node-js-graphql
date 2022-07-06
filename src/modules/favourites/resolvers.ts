@@ -1,12 +1,6 @@
 import { getRelated } from "../../helper";
-import { actionTypes } from "./favouritesAPI";
-
-const enum types {
-    TRACKS = 'tracks',
-    BANDS = 'bands',
-    ARTISTS = 'artists',
-    GENRES = 'genres',
-}
+import { favouritesActionTypes as actionTypes } from "../../enums/favouritesActionTypes";
+import { entityTypes } from "../../enums/entityTypes";
 
 export const resolvers = {
     Query: {
@@ -16,42 +10,42 @@ export const resolvers = {
     },
     Favourites: {
         bands: async (parent: any, args: any, context: any) => {
-            return getRelated(parent, context, types.BANDS);
+            return getRelated(parent, context, entityTypes.BANDS);
         },
         genres: async (parent: any, args: any, context: any) => {
-            return getRelated(parent, context, types.GENRES);
+            return getRelated(parent, context, entityTypes.GENRES);
         },
         artists: async (parent: any, args: any, context: any) => {
-            return getRelated(parent, context, types.ARTISTS);
+            return getRelated(parent, context, entityTypes.ARTISTS);
         },
         tracks: async (parent: any, args: any, context: any) => {
-            return getRelated(parent, context, types.TRACKS);
+            return getRelated(parent, context, entityTypes.TRACKS);
         },
     },
     Mutation: {
         addTrackToFavourites: async (parent: any, args: any, context: any) => {
-            return context.dataSources.favouritesAPI.putRequest(args, types.TRACKS, context.token, actionTypes.ADD);
+            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.TRACKS, context.token, actionTypes.ADD);
         },
         addBandToFavourites: async (parent: any, args: any, context: any) => {
-            return context.dataSources.favouritesAPI.putRequest(args, types.BANDS, context.token, actionTypes.ADD);
+            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.BANDS, context.token, actionTypes.ADD);
         },
         addArtistToFavourites: async (parent: any, args: any, context: any) => {
-            return context.dataSources.favouritesAPI.putRequest(args, types.ARTISTS, context.token, actionTypes.ADD);
+            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.ARTISTS, context.token, actionTypes.ADD);
         },
         addGenreToFavourites: async (parent: any, args: any, context: any) => {
-            return context.dataSources.favouritesAPI.putRequest(args, types.GENRES, context.token, actionTypes.ADD);
+            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.GENRES, context.token, actionTypes.ADD);
         },
         removeTrackFromFavourites: async (parent: any, args: any, context: any) => {
-            return context.dataSources.favouritesAPI.putRequest(args, types.TRACKS, context.token, actionTypes.REMOVE);
+            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.TRACKS, context.token, actionTypes.REMOVE);
         },
         removeBandFromFavourites: async (parent: any, args: any, context: any) => {
-            return context.dataSources.favouritesAPI.putRequest(args, types.BANDS, context.token, actionTypes.REMOVE);
+            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.BANDS, context.token, actionTypes.REMOVE);
         },
         removeArtistFromFavourites: async (parent: any, args: any, context: any) => {
-            return context.dataSources.favouritesAPI.putRequest(args, types.ARTISTS, context.token, actionTypes.REMOVE);
+            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.ARTISTS, context.token, actionTypes.REMOVE);
         },
         removeGenreFromFavourites: async (parent: any, args: any, context: any) => {
-            return context.dataSources.favouritesAPI.putRequest(args, types.GENRES, context.token, actionTypes.REMOVE);
+            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.GENRES, context.token, actionTypes.REMOVE);
         },
     }
 };

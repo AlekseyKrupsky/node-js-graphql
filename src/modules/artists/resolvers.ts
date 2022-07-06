@@ -1,4 +1,5 @@
 import { getRelated } from "../../helper";
+import { entityTypes } from "../../enums/entityTypes";
 
 export const resolvers = {
     Query: {
@@ -11,7 +12,7 @@ export const resolvers = {
     },
     Artist: {
         bands: async (artist: any, args: any, context: any) => {
-            return await getRelated(artist, context, 'bands');
+            return await getRelated(artist, context, entityTypes.BANDS);
         }
     },
     Mutation: {

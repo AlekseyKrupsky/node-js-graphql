@@ -1,10 +1,5 @@
 import { RESTDataSource } from "apollo-datasource-rest";
 
-export const enum actionTypes {
-    ADD = 'add',
-    REMOVE = 'remove'
-}
-
 const entityTypesPluralMap: {
     [key:string]: string
 } = {
