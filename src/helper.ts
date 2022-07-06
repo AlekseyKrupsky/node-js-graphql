@@ -1,13 +1,22 @@
-export const getRelated = async (parent: any, context: any, type: string, fieldName?: string) => {
-    const relatedItems = [];
-    const parentItemsIdsFieldName = fieldName ? fieldName : `${type}Ids`;
+import { microserviceEntity, defaultEntity } from "./musicianAPI";
+
+export const getRelated = async (
+    parent: any,
+    context: any,
+    type: string,
+    fieldName?: string
+): Promise<(defaultEntity | microserviceEntity)[]> => {
+    const relatedItems: microserviceEntity[] = [];
+    const parentItemsIdsFieldName: string = fieldName ? fieldName : `${type}Ids`;
 
     for (let itemId of parent[parentItemsIdsFieldName]) {
-        const item = await getOneRelated(itemId, context, type);
+        const item: microserviceEntity | null = await getOneRelated(itemId, context, type);
 
-        relatedItems.push(item);
+        if (item) {
+            relatedItems.push(item);
+        }
 
-        relatedItems.map((item: any) => {
+        relatedItems.map((item: defaultEntity | microserviceEntity) => {
             item.id = item._id;
         });
     }
@@ -15,7 +24,7 @@ export const getRelated = async (parent: any, context: any, type: string, fieldN
     return relatedItems;
 };
 
-export const getOneRelated = async (id: string, context: any, type: string) => {
+export const getOneRelated = async (id: string, context: any, type: string): Promise<microserviceEntity | null> => {
     if (!id) {
         return null;
     }

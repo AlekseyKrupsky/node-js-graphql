@@ -1,7 +1,7 @@
 import { RequestOptions, RESTDataSource } from "apollo-datasource-rest";
 
 class TokenizedAPI extends RESTDataSource {
-    private readonly token;
+    private readonly token: string;
 
     constructor(token: string, baseURL: string) {
         super();

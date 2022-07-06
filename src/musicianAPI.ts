@@ -1,20 +1,37 @@
 import TokenizedAPI from "./tokenizedAPI";
 
+export type microserviceEntity = {
+    _id: string,
+    [key: string]: any
+}
+
+type newEntity = {
+    [key: string]: any
+}
+
+export type defaultEntity = {
+    id: string,
+    [key: string]: any
+}
+
 class MusicianAPI extends TokenizedAPI {
     constructor(token: string, baseURL: string) {
         super(token, baseURL);
     }
 
-    async find(id: string) {
-        const item = await this.get(encodeURIComponent(id));
+    async find(id: string): Promise<defaultEntity | microserviceEntity> {
+        const item: microserviceEntity = await this.get(encodeURIComponent(id));
 
         item.id = item._id;
 
         return item;
     }
 
-    async getAll(args: any) {
-        let params = {
+    async getAll(args: { limit: any, offset: any }): Promise<any> {
+        let params: {
+            limit: number,
+            offset: number
+        } = {
             limit: 5,
             offset: 0
         }
@@ -33,23 +50,23 @@ class MusicianAPI extends TokenizedAPI {
 
         const result = await this.get('', params);
 
-        result.items.map((item: any) => {
+        result.items.map((item: microserviceEntity) => {
             item.id = item._id;
         });
 
         return result.items;
     }
 
-    async create(args: any) {
-        const item = await this.post('', args);
+    async create(args: newEntity): Promise<defaultEntity | microserviceEntity> {
+        const item: microserviceEntity = await this.post('', args);
 
         item.id = item._id;
 
         return item;
     }
 
-    async update(args: any) {
-        const item = await this.put(args.id, args);
+    async update(args: defaultEntity): Promise<defaultEntity | microserviceEntity> {
+        const item: microserviceEntity = await this.put(args.id, args);
 
         item.id = item._id;
 
