@@ -1,18 +1,5 @@
 import TokenizedAPI from "./tokenizedAPI";
-
-export type microserviceEntity = {
-    _id: string,
-    [key: string]: any
-}
-
-type newEntity = {
-    [key: string]: any
-}
-
-export type defaultEntity = {
-    id: string,
-    [key: string]: any
-}
+import { defaultEntity, microserviceEntity, newEntity } from "./types/entities";
 
 class MusicianAPI extends TokenizedAPI {
     constructor(token: string, baseURL: string) {

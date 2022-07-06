@@ -1,8 +1,9 @@
-import { microserviceEntity, defaultEntity } from "./musicianAPI";
+import { microserviceEntity, defaultEntity } from "./types/entities";
+import { Context } from "./types/context";
 
 export const getRelated = async (
     parent: any,
-    context: any,
+    context: Context,
     type: string,
     fieldName?: string
 ): Promise<(defaultEntity | microserviceEntity)[]> => {
@@ -24,7 +25,7 @@ export const getRelated = async (
     return relatedItems;
 };
 
-export const getOneRelated = async (id: string, context: any, type: string): Promise<microserviceEntity | null> => {
+export const getOneRelated = async (id: string, context: Context, type: string): Promise<microserviceEntity | null> => {
     if (!id) {
         return null;
     }
