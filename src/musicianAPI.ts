@@ -1,8 +1,8 @@
-import { RESTDataSource } from "apollo-datasource-rest";
+import TokenizedAPI from "./tokenizedAPI";
 
-class MusicifyAPI extends RESTDataSource {
-    constructor() {
-        super();
+class MusicianAPI extends TokenizedAPI {
+    constructor(token: string, baseURL: string) {
+        super(token, baseURL);
     }
 
     async find(id: string) {
@@ -40,25 +40,25 @@ class MusicifyAPI extends RESTDataSource {
         return result.items;
     }
 
-    async create(args: any, token: string) {
-        const item = await this.post('', args, { headers: { Authorization: `${token}` }});
+    async create(args: any) {
+        const item = await this.post('', args);
 
         item.id = item._id;
 
         return item;
     }
 
-    async update(args: any, token: string) {
-        const item = await this.put(args.id, args, { headers: { Authorization: `${token}` }});
+    async update(args: any) {
+        const item = await this.put(args.id, args);
 
         item.id = item._id;
 
         return item;
     }
 
-    async remove(id: string, token: string) {
-        return await this.delete(id, {}, { headers: { Authorization: `${token}` }});
+    async remove(id: string) {
+        return await this.delete(id);
     }
 }
 
-export default MusicifyAPI;
+export default MusicianAPI;

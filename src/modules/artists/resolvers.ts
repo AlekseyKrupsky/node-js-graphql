@@ -19,15 +19,15 @@ export const resolvers = {
         createArtist: async (parent: any, args: any, context: any) => {
             args.bandsIds = args.bands;
 
-            return context.dataSources.artistsAPI.create(args, context.token);
+            return context.dataSources.artistsAPI.create(args);
         },
         updateArtist: async (parent: any, args: any, context: any) => {
             args.bandsIds = args.bands;
 
-            return context.dataSources.artistsAPI.update(args, context.token);
+            return context.dataSources.artistsAPI.update(args);
         },
         deleteArtist: async (parent: any, args: any, context: any) => {
-            return context.dataSources.artistsAPI.remove(args.id, context.token);
+            return context.dataSources.artistsAPI.remove(args.id);
         },
     }
 };

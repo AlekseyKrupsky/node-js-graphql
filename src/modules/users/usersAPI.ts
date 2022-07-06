@@ -1,9 +1,8 @@
-import { RESTDataSource } from "apollo-datasource-rest";
+import TokenizedAPI from "../../tokenizedAPI";
 
-class UsersAPI extends RESTDataSource {
-    constructor() {
-        super();
-        this.baseURL = process.env.USERS_URL;
+class UsersAPI extends TokenizedAPI {
+    constructor(token: string, baseURL: string) {
+        super(token, baseURL);
     }
 
     async find(id: string) {
@@ -18,8 +17,8 @@ class UsersAPI extends RESTDataSource {
         return this.post('register', args);
     }
 
-    async verify(token: string) {
-        return this.post('verify', {}, { headers: { Authorization: `${token}` }});
+    async verify() {
+        return this.post('verify');
     }
 }
 

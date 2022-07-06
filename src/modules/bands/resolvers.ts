@@ -36,13 +36,13 @@ export const resolvers = {
     },
     Mutation: {
         createBand: async (parent: any, args: CreateBand, context: any) => {
-            return context.dataSources.bandsAPI.create(args, context.token);
+            return context.dataSources.bandsAPI.create(args);
         },
         updateBand: async (parent: any, args: any, context: any) => {
-            return context.dataSources.bandsAPI.update(args, context.token);
+            return context.dataSources.bandsAPI.update(args);
         },
         deleteBand: async (parent: any, args: any, context: any) => {
-            return context.dataSources.bandsAPI.remove(args.id, context.token);
+            return context.dataSources.bandsAPI.remove(args.id);
         },
     }
 };

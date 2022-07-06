@@ -49,26 +49,39 @@ export const run = () => {
             Member: bandsResolvers.Member
         };
 
+        let token: string;
+
         const server = new ApolloServer({
             typeDefs,
             resolvers,
             csrfPrevention: true,
             cache: 'bounded',
             dataSources: () => {
+                if (!(
+                    process.env.ARTISTS_URL
+                    && process.env.ALBUMS_URL
+                    && process.env.GENRES_URL
+                    && process.env.BANDS_URL
+                    && process.env.USERS_URL
+                    && process.env.TRACKS_URL
+                    && process.env.FAVOURITES_URL
+                )) {
+                    console.log('Microservices URL aren\'t set.');
+                    process.exit(1);
+                }
+
                 return {
-                    artistsAPI: new ArtistsAPI(),
-                    albumsAPI: new AlbumsAPI(),
-                    genresAPI: new GenresAPI(),
-                    bandsAPI: new BandsAPI(),
-                    usersAPI: new UsersAPI(),
-                    tracksAPI: new TracksAPI(),
-                    favouritesAPI: new FavouritesAPI(),
+                    artistsAPI: new ArtistsAPI(token, process.env.ARTISTS_URL),
+                    albumsAPI: new AlbumsAPI(token, process.env.ALBUMS_URL),
+                    genresAPI: new GenresAPI(token, process.env.GENRES_URL),
+                    bandsAPI: new BandsAPI(token, process.env.BANDS_URL),
+                    usersAPI: new UsersAPI(token, process.env.USERS_URL),
+                    tracksAPI: new TracksAPI(token, process.env.TRACKS_URL),
+                    favouritesAPI: new FavouritesAPI(token, process.env.FAVOURITES_URL),
                 }
             },
             context: ({ req }) => {
-                const token = req.headers.authorization || '';
-
-                return { token };
+                token = req.headers.authorization || '';
             }
         });
 

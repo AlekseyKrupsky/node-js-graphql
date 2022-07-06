@@ -14,7 +14,7 @@ export const resolvers = {
             return loginResponse.jwt;
         },
         verify: async (parent: any, args: any, context: any) => {
-            const user = await context.dataSources.usersAPI.verify(context.token);
+            const user = await context.dataSources.usersAPI.verify();
 
             user.secondName = user.lastName;
             user.id = user._id;

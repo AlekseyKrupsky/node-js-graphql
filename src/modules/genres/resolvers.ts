@@ -16,13 +16,13 @@ export const resolvers = {
     },
     Mutation: {
         createGenre: async (parent: any, args: CreateGenre, context: any) => {
-            return context.dataSources.genresAPI.create(args, context.token);
+            return context.dataSources.genresAPI.create(args);
         },
         updateGenre: async (parent: any, args: any, context: any) => {
-            return context.dataSources.genresAPI.update(args, context.token);
+            return context.dataSources.genresAPI.update(args);
         },
         deleteGenre: async (parent: any, args: any, context: any) => {
-            return context.dataSources.genresAPI.remove(args.id, context.token);
+            return context.dataSources.genresAPI.remove(args.id);
         },
     }
 };

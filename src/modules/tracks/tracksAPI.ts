@@ -1,9 +1,8 @@
-import MusicifyAPI from "../../musicifyAPI";
+import MusicianAPI from "../../musicianAPI";
 
-class TracksAPI extends MusicifyAPI {
-    constructor() {
-        super();
-        this.baseURL = process.env.TRACKS_URL;
+class TracksAPI extends MusicianAPI {
+    constructor(token: string, baseURL: string) {
+        super(token, baseURL);
     }
 }
 

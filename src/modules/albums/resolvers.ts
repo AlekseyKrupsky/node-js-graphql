@@ -33,7 +33,7 @@ export const resolvers = {
             args.trackIds = args.tracks;
             args.genresIds = args.genres;
 
-            return context.dataSources.albumsAPI.create(args, context.token);
+            return context.dataSources.albumsAPI.create(args);
         },
         updateAlbum: async (parent: any, args: any, context: any) => {
             args.artistsIds = args.artists;
@@ -41,10 +41,10 @@ export const resolvers = {
             args.trackIds = args.tracks;
             args.genresIds = args.genres;
 
-            return context.dataSources.albumsAPI.update(args, context.token);
+            return context.dataSources.albumsAPI.update(args);
         },
         deleteAlbum: async (parent: any, args: any, context: any) => {
-            return context.dataSources.albumsAPI.remove(args.id, context.token);
+            return context.dataSources.albumsAPI.remove(args.id);
         },
     }
 };
