@@ -4,7 +4,7 @@ import { Context } from "./types/context";
 export const getRelated = async (
     parent: any,
     context: Context,
-    type: string,
+    type: "users" | "tracks" | "genres" | "favourites" | "bands" | "artists" | "albums",
     fieldName?: string
 ): Promise<(defaultEntity | microserviceEntity)[]> => {
     const relatedItems: microserviceEntity[] = [];
@@ -30,5 +30,6 @@ export const getOneRelated = async (id: string, context: Context, type: string):
         return null;
     }
 
+    //@ts-ignore
     return context.dataSources[`${type}API`].find(id);
 };

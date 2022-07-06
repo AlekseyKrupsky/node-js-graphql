@@ -7,14 +7,18 @@ const TRACKS_FIELD_NAME = 'trackIds';
 export const resolvers = {
     Query: {
         albums: async (parent: any, args: any, context: Context) => {
+            console.log(parent);
+
             return context.dataSources.albumsAPI.getAll(args);
         },
         album: async (parent: any, args: any, context: Context) => {
+            console.log(parent);
             return context.dataSources.albumsAPI.find(args.id);
         },
     },
     Album: {
         bands: async (album: any, args: any, context: Context) => {
+            console.log(album);
             return getRelated(album, context, entityTypes.BANDS);
         },
         artists: async (album: any, args: any, context: Context) => {
