@@ -1,32 +1,33 @@
 import { getOneRelated, getRelated } from "../../helper";
-import { entityTypes } from "../../enums/entityTypes";
+import { EntityPlural } from "../../enums/entityTypes";
 import { Context } from "../../types/context";
+import {defaultEntity, fullEntity, newEntity} from "../../types/entities";
 
 export const resolvers = {
     Query: {
-        tracks: async (parent: any, args: any, context: Context) => {
+        tracks: async (parent: undefined, args: { limit: any, offset: any }, context: Context) => {
             return context.dataSources.tracksAPI.getAll(args);
         },
-        track: async (parent: any, args: any, context: Context) => {
+        track: async (parent: undefined, args: { id: string }, context: Context) => {
             return context.dataSources.tracksAPI.find(args.id);
         }
     },
     Track: {
-        artists: async (track: any, args: any, context: Context) => {
-            return getRelated(track, context, entityTypes.ARTISTS);
+        artists: async (track: fullEntity, args: any, context: Context) => {
+            return getRelated(track, context, EntityPlural.ARTISTS);
         },
-        bands: async (track: any, args: any, context: Context) => {
-            return getRelated(track, context, entityTypes.BANDS);
+        bands: async (track: fullEntity, args: any, context: Context) => {
+            return getRelated(track, context, EntityPlural.BANDS);
         },
-        genres: async (track: any, args: any, context: Context) => {
-            return getRelated(track, context, entityTypes.GENRES);
+        genres: async (track: fullEntity, args: any, context: Context) => {
+            return getRelated(track, context, EntityPlural.GENRES);
         },
-        album: async (track: any, args: any, context: Context) => {
-            return getOneRelated(track.albumId, context, entityTypes.ALBUMS);
+        album: async (track: fullEntity, args: any, context: Context) => {
+            return getOneRelated(track.albumId, context, EntityPlural.ALBUMS);
         }
     },
     Mutation: {
-        createTrack: async (parent: any, args: any, context: Context) => {
+        createTrack: async (parent: undefined, args: newEntity, context: Context) => {
             args.albumId = args.album;
             args.bandsIds = args.bands;
             args.artistsIds = args.artists;
@@ -34,7 +35,7 @@ export const resolvers = {
 
             return context.dataSources.tracksAPI.create(args);
         },
-        updateTrack: async (parent: any, args: any, context: Context) => {
+        updateTrack: async (parent: undefined, args: defaultEntity, context: Context) => {
             args.albumId = args.album;
             args.bandsIds = args.bands;
             args.artistsIds = args.artists;
@@ -42,7 +43,7 @@ export const resolvers = {
 
             return context.dataSources.tracksAPI.update(args);
         },
-        deleteTrack: async (parent: any, args: any, context: Context) => {
+        deleteTrack: async (parent: undefined, args: { id: string }, context: Context) => {
             return context.dataSources.tracksAPI.remove(args.id);
         },
     }

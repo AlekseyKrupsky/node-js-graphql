@@ -1,52 +1,53 @@
 import { getRelated } from "../../helper";
 import { favouritesActionTypes as actionTypes } from "../../enums/favouritesActionTypes";
-import { entityTypes } from "../../enums/entityTypes";
+import { EntityPlural } from "../../enums/entityTypes";
 import { Context } from "../../types/context";
+import { fullEntity } from "../../types/entities";
 
 export const resolvers = {
     Query: {
-        favourites: async (parent: any, args: any, context: Context) => {
+        favourites: async (parent: undefined, args: {}, context: Context) => {
             return context.dataSources.favouritesAPI.getAll();
         },
     },
     Favourites: {
-        bands: async (parent: any, args: any, context: Context) => {
-            return getRelated(parent, context, entityTypes.BANDS);
+        bands: async (parent: fullEntity, args: any, context: Context) => {
+            return getRelated(parent, context, EntityPlural.BANDS);
         },
-        genres: async (parent: any, args: any, context: Context) => {
-            return getRelated(parent, context, entityTypes.GENRES);
+        genres: async (parent: fullEntity, args: any, context: Context) => {
+            return getRelated(parent, context, EntityPlural.GENRES);
         },
-        artists: async (parent: any, args: any, context: Context) => {
-            return getRelated(parent, context, entityTypes.ARTISTS);
+        artists: async (parent: fullEntity, args: any, context: Context) => {
+            return getRelated(parent, context, EntityPlural.ARTISTS);
         },
-        tracks: async (parent: any, args: any, context: Context) => {
-            return getRelated(parent, context, entityTypes.TRACKS);
+        tracks: async (parent: fullEntity, args: any, context: Context) => {
+            return getRelated(parent, context, EntityPlural.TRACKS);
         },
     },
     Mutation: {
-        addTrackToFavourites: async (parent: any, args: any, context: Context) => {
-            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.TRACKS, actionTypes.ADD);
+        addTrackToFavourites: async (parent: undefined, args: { track: string }, context: Context) => {
+            return context.dataSources.favouritesAPI.putRequest(args, EntityPlural.TRACKS, actionTypes.ADD);
         },
-        addBandToFavourites: async (parent: any, args: any, context: Context) => {
-            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.BANDS, actionTypes.ADD);
+        addBandToFavourites: async (parent: undefined, args: { band: string }, context: Context) => {
+            return context.dataSources.favouritesAPI.putRequest(args, EntityPlural.BANDS, actionTypes.ADD);
         },
-        addArtistToFavourites: async (parent: any, args: any, context: Context) => {
-            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.ARTISTS, actionTypes.ADD);
+        addArtistToFavourites: async (parent: undefined, args: { artist: string }, context: Context) => {
+            return context.dataSources.favouritesAPI.putRequest(args, EntityPlural.ARTISTS, actionTypes.ADD);
         },
-        addGenreToFavourites: async (parent: any, args: any, context: Context) => {
-            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.GENRES, actionTypes.ADD);
+        addGenreToFavourites: async (parent: undefined, args: { genre: string }, context: Context) => {
+            return context.dataSources.favouritesAPI.putRequest(args, EntityPlural.GENRES, actionTypes.ADD);
         },
-        removeTrackFromFavourites: async (parent: any, args: any, context: Context) => {
-            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.TRACKS, actionTypes.REMOVE);
+        removeTrackFromFavourites: async (parent: undefined, args: { track: string }, context: Context) => {
+            return context.dataSources.favouritesAPI.putRequest(args, EntityPlural.TRACKS, actionTypes.REMOVE);
         },
-        removeBandFromFavourites: async (parent: any, args: any, context: Context) => {
-            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.BANDS, actionTypes.REMOVE);
+        removeBandFromFavourites: async (parent: undefined, args: { band: string }, context: Context) => {
+            return context.dataSources.favouritesAPI.putRequest(args, EntityPlural.BANDS, actionTypes.REMOVE);
         },
-        removeArtistFromFavourites: async (parent: any, args: any, context: Context) => {
-            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.ARTISTS, actionTypes.REMOVE);
+        removeArtistFromFavourites: async (parent: undefined, args: { artist: string }, context: Context) => {
+            return context.dataSources.favouritesAPI.putRequest(args, EntityPlural.ARTISTS, actionTypes.REMOVE);
         },
-        removeGenreFromFavourites: async (parent: any, args: any, context: Context) => {
-            return context.dataSources.favouritesAPI.putRequest(args, entityTypes.GENRES, actionTypes.REMOVE);
+        removeGenreFromFavourites: async (parent: undefined, args: { genre: string }, context: Context) => {
+            return context.dataSources.favouritesAPI.putRequest(args, EntityPlural.GENRES, actionTypes.REMOVE);
         },
     }
 };

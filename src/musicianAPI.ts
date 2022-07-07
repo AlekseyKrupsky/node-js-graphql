@@ -1,12 +1,12 @@
 import TokenizedAPI from "./tokenizedAPI";
-import { defaultEntity, microserviceEntity, newEntity } from "./types/entities";
+import { defaultEntity, fullEntity, microserviceEntity, newEntity } from "./types/entities";
 
 class MusicianAPI extends TokenizedAPI {
     constructor(token: string, baseURL: string) {
         super(token, baseURL);
     }
 
-    async find(id: string): Promise<defaultEntity | microserviceEntity> {
+    async find(id: string): Promise<fullEntity> {
         const item: microserviceEntity = await this.get(encodeURIComponent(id));
 
         item.id = item._id;
@@ -35,7 +35,7 @@ class MusicianAPI extends TokenizedAPI {
             return { error: "Limit should be a number" };
         }
 
-        const result = await this.get('', params);
+        const result: { items: microserviceEntity[] } = await this.get('', params);
 
         result.items.map((item: microserviceEntity) => {
             item.id = item._id;
@@ -44,7 +44,7 @@ class MusicianAPI extends TokenizedAPI {
         return result.items;
     }
 
-    async create(args: newEntity): Promise<defaultEntity | microserviceEntity> {
+    async create(args: newEntity): Promise<fullEntity> {
         const item: microserviceEntity = await this.post('', args);
 
         item.id = item._id;
@@ -52,7 +52,7 @@ class MusicianAPI extends TokenizedAPI {
         return item;
     }
 
-    async update(args: defaultEntity): Promise<defaultEntity | microserviceEntity> {
+    async update(args: defaultEntity): Promise<fullEntity> {
         const item: microserviceEntity = await this.put(args.id, args);
 
         item.id = item._id;

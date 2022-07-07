@@ -11,3 +11,5 @@ export type defaultEntity = {
     id: string,
     [key: string]: any
 }
+
+export type fullEntity = defaultEntity | microserviceEntity;
