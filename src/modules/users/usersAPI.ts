@@ -1,10 +1,6 @@
 import TokenizedAPI from "../../tokenizedAPI";
 
 class UsersAPI extends TokenizedAPI {
-    constructor(token: string, baseURL: string) {
-        super(token, baseURL);
-    }
-
     async find(id: string) {
         return this.get(encodeURIComponent(id));
     }

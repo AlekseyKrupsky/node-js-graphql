@@ -2,10 +2,6 @@ import TokenizedAPI from "./tokenizedAPI";
 import { defaultEntity, fullEntity, microserviceEntity, newEntity } from "./types/entities";
 
 class MusicianAPI extends TokenizedAPI {
-    constructor(token: string, baseURL: string) {
-        super(token, baseURL);
-    }
-
     async find(id: string): Promise<fullEntity> {
         const item: microserviceEntity = await this.get(encodeURIComponent(id));
 

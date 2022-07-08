@@ -22,10 +22,6 @@ const EntityPluralPluralMap: {
 }
 
 class FavouritesAPI extends TokenizedAPI {
-    constructor(token: string, baseURL: string) {
-        super(token, baseURL);
-    }
-
     async getAll() {
         const favourites = await this.get('');
 

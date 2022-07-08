@@ -1,4 +1,4 @@
-import { microserviceEntity, fullEntity } from "./types/entities";
+import { fullEntity } from "./types/entities";
 import { Context } from "./types/context";
 import { Etest2 } from "./modules/favourites/favouritesAPI";
 

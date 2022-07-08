@@ -1,9 +1,5 @@
 import MusicianAPI from "../../musicianAPI";
 
-class GenresAPI extends MusicianAPI {
-    constructor(token: string, baseURL: string) {
-        super(token, baseURL);
-    }
-}
+class GenresAPI extends MusicianAPI {}
 
 export default GenresAPI;
