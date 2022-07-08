@@ -1,11 +1,12 @@
 import { fullEntity } from "./types/entities";
 import { Context } from "./types/context";
-import { Etest2 } from "./modules/favourites/favouritesAPI";
+import { EntityPluralUnion } from "./types/entityTypes";
+import MusicianAPI from "./musicianAPI";
 
 export const getRelated = async (
     parent: any,
     context: Context,
-    type: "users" | "tracks" | "genres" | "favourites" | "bands" | "artists" | "albums",
+    type: EntityPluralUnion,
     fieldName?: string
 ): Promise<fullEntity[]> => {
     const relatedItems: fullEntity[] = [];
@@ -26,11 +27,12 @@ export const getRelated = async (
     return relatedItems;
 };
 
-export const getOneRelated = async (id: string, context: Context, type: Etest2): Promise<fullEntity | null> => {
+export const getOneRelated = async (id: string, context: Context, type: EntityPluralUnion): Promise<fullEntity | null> => {
     if (!id) {
         return null;
     }
 
-    //@ts-ignore
-    return context.dataSources[`${type}API`].find(id);
+    const dataSource = context.dataSources[`${type}API`] as MusicianAPI;
+
+    return dataSource.find(id);
 };
