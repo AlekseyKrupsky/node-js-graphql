@@ -1,5 +1,5 @@
 import { Context } from "../../types/context";
-import {defaultEntity} from "../../types/entities";
+import {defaultEntity, fullEntity} from "../../types/entities";
 
 export type CreateGenre = {
     name: string,
@@ -10,18 +10,18 @@ export type CreateGenre = {
 
 export const resolvers = {
     Query: {
-        genres: async (parent: undefined, args: any, context: Context) => {
+        genres: async (parent: undefined, args: any, context: Context): Promise<fullEntity[]> => {
             return context.dataSources.genresAPI.getAll(args);
         },
-        genre: async (parent: undefined, args: any, context: Context) => {
+        genre: async (parent: undefined, args: any, context: Context): Promise<fullEntity> => {
             return context.dataSources.genresAPI.find(args.id);
         }
     },
     Mutation: {
-        createGenre: async (parent: undefined, args: CreateGenre, context: Context) => {
+        createGenre: async (parent: undefined, args: CreateGenre, context: Context): Promise<fullEntity> => {
             return context.dataSources.genresAPI.create(args);
         },
-        updateGenre: async (parent: undefined, args: defaultEntity, context: Context) => {
+        updateGenre: async (parent: undefined, args: defaultEntity, context: Context): Promise<fullEntity> => {
             return context.dataSources.genresAPI.update(args);
         },
         deleteGenre: async (parent: undefined, args: { id: string }, context: Context) => {

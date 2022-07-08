@@ -6,7 +6,7 @@ type Artist {
     birthDate: String
     birthPlace: String
     country: String
-    bands: [Band]
+    bands(limit: Int, offset: Int): [Band]
     instruments: [String]
 }
 

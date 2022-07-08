@@ -2,11 +2,11 @@ type Track {
     id: ID!
     title: String!
     album: Album
-    artists: [Artist]
-    bands: [Band]
+    artists(limit: Int, offset: Int): [Artist]
+    bands(limit: Int, offset: Int): [Band]
     duration: Int
     released: Int
-    genres: [Genre]
+    genres(limit: Int, offset: Int): [Genre]
 }
 
 extend type Query {

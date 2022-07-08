@@ -2,10 +2,10 @@ type Album {
     id: ID!
     name: String
     released: Int
-    artists: [Artist]
-    bands: [Band]
-    tracks: [Track]
-    genres: [Genre]
+    artists(limit: Int, offset: Int): [Artist]
+    bands(limit: Int, offset: Int): [Band]
+    tracks(limit: Int, offset: Int): [Track]
+    genres(limit: Int, offset: Int): [Genre]
     image: String
 }
 

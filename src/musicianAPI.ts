@@ -10,7 +10,7 @@ class MusicianAPI extends TokenizedAPI {
         return item;
     }
 
-    async getAll(args: { limit: any, offset: any }): Promise<any> {
+    async getAll(args: { limit: any, offset: any }): Promise<fullEntity[]> {
         let params: {
             limit: number,
             offset: number
@@ -22,13 +22,13 @@ class MusicianAPI extends TokenizedAPI {
         if (typeof args.offset === "number") {
             params.offset = args.offset;
         } else if (args.offset !== undefined) {
-            return { error: "Offset should be a number" };
+            throw new Error("Offset should be a number");
         }
 
         if (typeof args.limit === "number") {
             params.limit = args.limit;
         } else if (args.limit !== undefined) {
-            return { error: "Limit should be a number" };
+            throw new Error("Limit should be a number");
         }
 
         const result: { items: microserviceEntity[] } = await this.get('', params);

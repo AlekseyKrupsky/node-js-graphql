@@ -5,29 +5,29 @@ import {defaultEntity, fullEntity, newEntity} from "../../types/entities";
 
 export const resolvers = {
     Query: {
-        tracks: async (parent: undefined, args: { limit: any, offset: any }, context: Context) => {
+        tracks: async (parent: undefined, args: { limit: any, offset: any }, context: Context): Promise<fullEntity[]> => {
             return context.dataSources.tracksAPI.getAll(args);
         },
-        track: async (parent: undefined, args: { id: string }, context: Context) => {
+        track: async (parent: undefined, args: { id: string }, context: Context): Promise<fullEntity> => {
             return context.dataSources.tracksAPI.find(args.id);
         }
     },
     Track: {
-        artists: async (track: fullEntity, args: any, context: Context) => {
-            return getRelated(track, context, EntityPlural.ARTISTS);
+        artists: async (track: fullEntity, args: { limit: any, offset: any }, context: Context): Promise<fullEntity[]> => {
+            return getRelated(track, context, EntityPlural.ARTISTS, args);
         },
-        bands: async (track: fullEntity, args: any, context: Context) => {
-            return getRelated(track, context, EntityPlural.BANDS);
+        bands: async (track: fullEntity, args: { limit: any, offset: any }, context: Context): Promise<fullEntity[]> => {
+            return getRelated(track, context, EntityPlural.BANDS, args);
         },
-        genres: async (track: fullEntity, args: any, context: Context) => {
-            return getRelated(track, context, EntityPlural.GENRES);
+        genres: async (track: fullEntity, args: { limit: any, offset: any }, context: Context): Promise<fullEntity[]> => {
+            return getRelated(track, context, EntityPlural.GENRES, args);
         },
-        album: async (track: fullEntity, args: any, context: Context) => {
+        album: async (track: fullEntity, args: any, context: Context): Promise<fullEntity | null> => {
             return getOneRelated(track.albumId, context, EntityPlural.ALBUMS);
         }
     },
     Mutation: {
-        createTrack: async (parent: undefined, args: newEntity, context: Context) => {
+        createTrack: async (parent: undefined, args: newEntity, context: Context): Promise<fullEntity> => {
             args.albumId = args.album;
             args.bandsIds = args.bands;
             args.artistsIds = args.artists;
@@ -35,7 +35,7 @@ export const resolvers = {
 
             return context.dataSources.tracksAPI.create(args);
         },
-        updateTrack: async (parent: undefined, args: defaultEntity, context: Context) => {
+        updateTrack: async (parent: undefined, args: defaultEntity, context: Context): Promise<fullEntity> => {
             args.albumId = args.album;
             args.bandsIds = args.bands;
             args.artistsIds = args.artists;
