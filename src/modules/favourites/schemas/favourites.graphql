@@ -1,0 +1,23 @@
+type Favourites {
+    id: ID!
+    userId: ID
+    bands(limit: Int, offset: Int): [Band]
+    genres(limit: Int, offset: Int): [Genre]
+    artists(limit: Int, offset: Int): [Artist]
+    tracks(limit: Int, offset: Int): [Track]
+}
+
+extend type Query {
+    favourites: Favourites
+}
+
+extend type Mutation {
+    addTrackToFavourites(track: ID!): Favourites
+    addBandToFavourites(band: ID!): Favourites
+    addArtistToFavourites(artist: ID!): Favourites
+    addGenreToFavourites(genre: ID!): Favourites
+    removeTrackFromFavourites(track: ID!): Favourites
+    removeBandFromFavourites(band: ID!): Favourites
+    removeArtistFromFavourites(artist: ID!): Favourites
+    removeGenreFromFavourites(genre: ID!): Favourites
+}
